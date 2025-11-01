@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "adb": "^0.2.0",
+    "axios": "^1.13.0",
+    "dotenv": "^17.2.3",
+    "jsx": "^0.9.89"
+  },
+  "devDependencies": {
+    "@react-native-community/cli": "^20.0.2"
+  }
+}
