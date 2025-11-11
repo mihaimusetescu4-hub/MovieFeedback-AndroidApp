@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from .models import *
 from .serializers import *
+from rest_framework import viewsets
 
 class StudioViewSet(ReadOnlyModelViewSet):
     queryset = Studio.objects.all()
@@ -22,9 +23,9 @@ class UtilizatorViewSet(ReadOnlyModelViewSet):
     queryset = Utilizator.objects.all()
     serializer_class = UtilizatorSerializer
 
-class FilmViewSet(ReadOnlyModelViewSet):
-    queryset = Filme.objects.all()
-    serializer_class = FilmSerializer
+# class FilmViewSet(ReadOnlyModelViewSet):
+#     queryset = Filme.objects.all()
+#     serializer_class = FilmSerializer
 
 class FeedbackViewSet(ReadOnlyModelViewSet):
     queryset = Feedback.objects.all()
@@ -41,3 +42,17 @@ class FilmGenViewSet(ReadOnlyModelViewSet):
 class FeedbackReactieViewSet(ReadOnlyModelViewSet):
     queryset = FeedbackReactie.objects.all()
     serializer_class = FeedbackReactieSerializer
+
+class FilmViewSet(viewsets.ModelViewSet):
+    queryset = Filme.objects.all()
+
+    def get_serializer_class(self):
+        
+        if self.action == 'retrieve':
+            return FilmDetailSerializer
+        return FilmSerializer
+    
+class FilmSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Filme
+        fields = '__all__'

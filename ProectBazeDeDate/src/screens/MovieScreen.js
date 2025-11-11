@@ -139,7 +139,12 @@ export default function MoviesScreen({ navigation }) {
               {item.varsta_necesara ?? "—"}
             </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate("MovieProfile")}
+              onPress={() =>
+                navigation.navigate('MovieProfile', {
+                  filmId: item.id_film,
+                  initialTitle: item.nume_film, // optional
+                })
+              }
               style={{ marginTop: 8 }}
             >
               <Text style={{ color: "#06f" }}>Detalii</Text>
