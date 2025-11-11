@@ -1,4 +1,4 @@
-package com.proectbazededate
+package com.proiectbazededate
 
 import android.os.Bundle
 import com.facebook.react.ReactActivity
@@ -8,7 +8,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 
 class MainActivity : ReactActivity() {
 
-  override fun getMainComponentName(): String = "ProectBazeDeDate"
+  override fun getMainComponentName(): String = "ProiectBazeDeDate"
 
   override fun createReactActivityDelegate(): ReactActivityDelegate {
     return DefaultReactActivityDelegate(

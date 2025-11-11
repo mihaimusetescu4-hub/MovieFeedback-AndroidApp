@@ -1,4 +1,4 @@
-package com.proectbazededate
+package com.proiectbazededate
 
 import android.app.Application
 import com.facebook.react.PackageList
