@@ -69,7 +69,7 @@ class FilmDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Filme
         fields = '__all__'
-        depth = 1  # opțional, pentru a include FK-urile simple
+        depth = 1
 
     def get_actori(self, obj):
         legaturi = FilmActor.objects.filter(id_film=obj.id_film)
@@ -84,3 +84,4 @@ class FilmDetailSerializer(serializers.ModelSerializer):
     def get_feedbackuri(self, obj):
         feedbackuri = Feedback.objects.filter(id_film=obj.id_film)
         return FeedbackSerializer(feedbackuri, many=True).data
+    
