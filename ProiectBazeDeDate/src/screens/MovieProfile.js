@@ -105,7 +105,7 @@ const FilmDetailScreen = ({ route, navigation, user, userId }) => {
         <View style={{ height: 80 }} />
       </ScrollView>
 
-      {/* BUTONUL + CU REDIRECȚIONARE */}
+      {/* BUTONUL +*/}
       <TouchableOpacity style={styles.fab} onPress={handlePlusPress}>
         <Text style={styles.fabIcon}>+</Text>
       </TouchableOpacity>

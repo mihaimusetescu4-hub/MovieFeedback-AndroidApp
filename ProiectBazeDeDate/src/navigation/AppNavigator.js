@@ -13,8 +13,8 @@ export default function AppNavigator({ user, setUser, userId, setUserId }) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-          name="Movies" 
+        <Stack.Screen
+          name="Movies"
           options={({ navigation }) => ({
             title: "Filme",
             headerRight: () => (
@@ -26,16 +26,15 @@ export default function AppNavigator({ user, setUser, userId, setUserId }) {
             ),
           })}
         >
-            {/* Trimitem props corect ca sa nu mai dea Element type invalid */}
-            {(props) => <MoviesScreen {...props} user={user} />}
+          {(props) => <MoviesScreen {...props} user={user} />}
         </Stack.Screen>
 
         <Stack.Screen name="MovieProfile">
-           {(props) => <MovieProfile {...props} user={user} userId={userId} />}
+          {(props) => <MovieProfile {...props} user={user} userId={userId} />}
         </Stack.Screen>
 
         <Stack.Screen name="Login">
-           {(props) => <LoginScreen {...props} setUser={setUser} setUserId={setUserId} />}
+          {(props) => <LoginScreen {...props} setUser={setUser} setUserId={setUserId} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

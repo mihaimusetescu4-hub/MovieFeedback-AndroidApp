@@ -9,7 +9,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 
-// 1. AICI ERA GREȘEALA: Trebuie să adaugi setUserId în paranteze!
+
 const LoginScreen = ({ navigation, setUser, setUserId }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
@@ -35,25 +35,18 @@ const LoginScreen = ({ navigation, setUser, setUserId }) => {
 
       const data = await response.json();
 
-      // 2. DEBUG: Vedem exact ce primim de la server
+      // DEBUG
       console.log("====================================");
       console.log("LOGIN DATA:", JSON.stringify(data, null, 2));
       console.log("====================================");
 
       if (response.ok) {
-        // PASUL 1: Salvăm datele
         setUser(data.username);
-
-        // 3. Aici facem salvarea ID-ului.
-        // Verificăm în consolă dacă câmpul se numește "id_utilizator", "id" sau "pk"
-        // și folosim varianta corectă:
         if (setUserId) {
-             // Dacă în consolă vezi "id": 5, schimbă mai jos în data.id
              setUserId(data.id_utilizator); 
              console.log("ID SALVAT:", data.id_utilizator);
         }
 
-        // PASUL 2: Navigăm
         navigation.navigate("Movies");
       } else {
         Alert.alert("Eroare", data.error || "Date incorecte.");
