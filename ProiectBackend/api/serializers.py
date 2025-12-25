@@ -24,7 +24,11 @@ class GenSerializer(serializers.ModelSerializer):
 class UtilizatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Utilizator
-        exclude = ['parola_hash']
+        
+        fields = ['id_utilizator', 'username', 'email', 'parola_hash', 'varsta', 'data_inregistrare']
+        extra_kwargs = {
+            'parola_hash': {'write_only': True} # Utilizatorul trimite parola, dar API-ul nu o da inapoi in listari
+        }
 
 class FilmSerializer(serializers.ModelSerializer):
     class Meta:
@@ -51,37 +55,3 @@ class FeedbackReactieSerializer(serializers.ModelSerializer):
         model = FeedbackReactie
         fields = "__all__"
 
-class FeedbackSerializer(serializers.ModelSerializer):
-    utilizator = UtilizatorSerializer(source='id_utilizator', read_only=True)
-
-    class Meta:
-        model = Feedback
-        fields = '__all__'
-
-
-class FilmDetailSerializer(serializers.ModelSerializer):
-    studio = StudioSerializer(source='id_studio', read_only=True)
-    regizor = RegizorSerializer(source='id_regizor', read_only=True)
-    actori = serializers.SerializerMethodField()
-    genuri = serializers.SerializerMethodField()
-    feedbackuri = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Filme
-        fields = '__all__'
-        depth = 1
-
-    def get_actori(self, obj):
-        legaturi = FilmActor.objects.filter(id_film=obj.id_film)
-        actori = [leg.id_actor for leg in legaturi]
-        return ActorSerializer(actori, many=True).data
-
-    def get_genuri(self, obj):
-        legaturi = FilmGen.objects.filter(id_film=obj.id_film)
-        genuri = [leg.id_gen for leg in legaturi]
-        return GenSerializer(genuri, many=True).data
-
-    def get_feedbackuri(self, obj):
-        feedbackuri = Feedback.objects.filter(id_film=obj.id_film)
-        return FeedbackSerializer(feedbackuri, many=True).data
-    
