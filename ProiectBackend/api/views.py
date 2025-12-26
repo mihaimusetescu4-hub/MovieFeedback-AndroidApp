@@ -238,9 +238,36 @@ class FilmViewSet(RawSQLModelViewSet):
         data["feedback"] = recenzii
         return Response(data)
 
+# class FeedbackViewSet(RawSQLModelViewSet):
+#     model = Feedback
+#     serializer_class = FeedbackSerializer
+
 class FeedbackViewSet(RawSQLModelViewSet):
     model = Feedback
     serializer_class = FeedbackSerializer
+
+    def update(self, request, pk=None):
+        nume = request.data.get('nume_comentariu')
+        descriere = request.data.get('descriere_comentariu')
+        rating = request.data.get('rating_comentariu')
+
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                UPDATE feedback 
+                SET nume_comentariu = %s, 
+                    descriere_comentariu = %s, 
+                    rating_comentariu = %s,
+                    updated_at = NOW() 
+                WHERE id_feedback = %s
+            """, [nume, descriere, rating, pk])
+        
+        return Response({'message': 'Update reusit!'}, status=status.HTTP_200_OK)
+
+    def destroy(self, request, pk=None):
+        with connection.cursor() as cursor:
+            cursor.execute("DELETE FROM feedback WHERE id_feedback = %s", [pk])
+            
+        return Response({'message': 'Sters cu succes!'}, status=status.HTTP_200_OK)
 
 class FilmActorViewSet(viewsets.ViewSet):
     serializer_class = FilmActorSerializer
